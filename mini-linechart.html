@@ -1,0 +1,77 @@
+<link rel="import" href="../polymer/polymer.html">
+
+<link rel="import" href="../bower_components/jquery-import-seph/jquery.html">
+<link rel="import" href="../bower_components/flot-import/flot.html">
+<link rel="import" href="../bower_components/flot-import/flot-tooltips.html">
+<link rel="import" href="../bower_components/flot-import/flot-curvedlines.html">
+<link rel="import" href="../bower_components/flot-import/flot-resize.html">
+
+<link rel="stylesheet" type="text/css" href="umega.css">
+
+<dom-module id="mini-linechart">
+    <template>
+        <div id="mini-linechart-lines" style="height: 74px"></div>
+    </template>
+
+    <script>
+        Polymer({
+            is: 'mini-linechart',
+
+            properties: {
+                dataPoints: {
+                    type: Array,
+                    notify: true,
+                },
+
+                dataOptions: {
+                    type: Object,
+                    value: {
+                        series: {
+                            lines: {
+                                show: true,
+                                lineWidth: 1
+                            },
+                            points: {
+                                show: true,
+                                lineWidth: 0,
+                                fill: true,
+                                fillColor: '#f39c12'
+                            },
+                            shadowSize: 0
+                        },
+                        grid: {
+                            hoverable: true,
+                            borderWidth: 0
+                        },
+                        xaxis: {
+                            ticks: 0
+                        },
+                        yaxis: {
+                            ticks: 0
+                        },
+                        tooltip: {
+                            show: true,
+                            content: '%s: %y',
+                            defaultTheme: false
+                        },
+                        legend: {
+                            show: false
+                        }
+                    }
+                }
+            },
+
+            attached: function () {
+                this.async(function () {
+                    var datasetOrder = [{
+                        label: 'Leads',
+                        data: this.dataPoints,
+                        color: '#f39c12'
+                    }];
+
+                    $.plot($('#mini-linechart-lines'), datasetOrder, this.dataOptions);
+                });
+            }
+        });
+    </script>
+</dom-module>
