@@ -1,0 +1,22 @@
+{
+  "name": "mini-linechart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SephVelut/mini-linechart.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SephVelut/mini-linechart/issues"
+  },
+  "homepage": "https://github.com/SephVelut/mini-linechart#readme",
+  "devDependencies": {
+    "browser-sync": "^2.12.5"
+  }
+}
