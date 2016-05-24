@@ -18,9 +18,23 @@
             is: 'mini-linechart',
 
             properties: {
+                label: {
+                    type: String
+                },
+
                 dataPoints: {
                     type: Array,
                     notify: true,
+                    observer: '_linesUpdated',
+                },
+
+                datasetOrder: {
+                    type: Array,
+                    value: [{
+                        label: 'label',
+                        data: [],
+                        color: '#f39c12',
+                    }],
                 },
 
                 dataOptions: {
@@ -61,15 +75,21 @@
                 }
             },
 
+            _linesUpdated: function(newValue, oldValue) {
+                this._showLines();
+            },
+
+            _showLines: function() {
+                this.datasetOrder[0].data = this.dataPoints;
+                this.datasetOrder[0].label = this.label;
+                $.plot(this.$['mini-linechart-lines'], this.datasetOrder, this.dataOptions);
+            },
+
             attached: function () {
                 this.async(function () {
-                    var datasetOrder = [{
-                        label: 'Leads',
-                        data: this.dataPoints,
-                        color: '#f39c12'
-                    }];
-
-                    $.plot(this.$['mini-linechart-lines'], datasetOrder, this.dataOptions);
+                    if(this.dataPoints !== undefined) {
+                        this._showLines();
+                    }
                 });
             }
         });
